@@ -8,17 +8,15 @@ const api = require('chai-api')(apiUrl);
 
 /** api tests */
 describe(`>>${__filename}`, function(){
-    let mock = {
-    };
 
-    it('hello ok', function*(){
+    it('API service ok', function*(){
         yield api.success('GET', '/hello');
     });
 
     /**
      * sub tests
      */
-//    require('./user')(mock);
+    require('./api-hero')();
 
 });
 

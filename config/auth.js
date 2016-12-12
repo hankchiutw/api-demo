@@ -8,5 +8,5 @@ passport.use('heroAuth', heroAuth);
 console.log('Config auth ...');
 module.exports = {
     initialize: passport.initialize.bind(passport),
-    heroAuth: passport.authenticate('heroAuth')
+    heroAuth: passport.authenticate('heroAuth', {session: false})
 };

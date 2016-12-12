@@ -12,6 +12,9 @@ module.exports = {
 };
 
 function *list(req, res, next){
+    let ret = [];
+
+    res.ok(ret);
 }
 
 function *oneById(req, res, next){
