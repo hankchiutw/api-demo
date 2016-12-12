@@ -10,6 +10,7 @@ const prod = require('./env/prod');
  * Will be overwrote by env specified settings
  */
 const defaults = {
+    mockUrl: 'http://hahow-recruit.herokuapp.com',
     apiPath: '/api/v1'
 };
 

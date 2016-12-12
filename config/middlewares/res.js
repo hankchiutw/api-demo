@@ -29,14 +29,8 @@ module.exports = ret;
  * Response 200 and logical succeed
  */
 function _ok(obj){
-    var ret = {
-        result: {
-            isSuccess: true,
-            result: obj
-        }
-    };
-    logger.simple("res OK: ", ret);
-    this.send(ret);
+    logger.simple("res OK: ", obj);
+    this.send(obj);
 }
 
 /**
