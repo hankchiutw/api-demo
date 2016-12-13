@@ -3,6 +3,7 @@
 const cn = require('co-nextware');
 const config = require('config/config');
 const rp = require('request-promise');
+const Hero = require('app/models/hero');
 
 /**
  * Expose
@@ -13,39 +14,38 @@ module.exports = {
     oneById: cn(oneById)
 };
 
+/**
+ * List data, public or secret
+ */
 function *list(req, res, next){
     logger.info('heroController: list:');
-    let ret, options;
+    let ret;
 
-    // secret list
     if(req.headers.name && req.headers.password){
-        options = {
-            method: 'POST',
-            uri: `${config.mockUrl}/auth`,
-            json: true,
-            body: {
-                name: req.headers.name,
-                password: req.headers.password
-            }
-        };
-        ret = yield rp(options);
+        yield Hero.doAuth(req.headers.name, req.headers.password);
+        ret = yield Hero.find();
+        yield ret.populate('profile');
+    }else
+        ret = yield Hero.find();
 
-        // fetch secret data
-    }
-    // public list
-    else{
-        options = {
-            method: 'GET',
-            uri: `${config.mockUrl}/heroes`,
-            json: true
-        };
-        ret = yield rp(options);
-    }
-
-    res.ok(ret);
+    res.ok(ret.json);
 }
 
+/**
+ * Get one data, public or secret
+ */
 function *oneById(req, res, next){
+    logger.info('heroController: oneById:', req.params);
+    const id = req.params.id;
+    let ret;
 
-    res.ok('hi');
+    if(req.headers.name && req.headers.password){
+        yield Hero.doAuth(req.headers.name, req.headers.password);
+        ret = yield Hero.findOneById(id);
+        yield ret.populate('profile');
+    }else
+        ret = yield Hero.findOneById(id);
+
+    res.ok(ret.json);
 }
+
