@@ -33,7 +33,7 @@
     "body-parser": "^1.14.1",
     "boolean": "^0.1.0",
     "chai": "^3.5.0",
-    "chai-api": "^1.0.3",
+    "chai-api": "^1.0.4",
     "chai-mongo": "^1.0.0",
     "co-nextware": "^1.0.1",
     "ejs": "^2.3.4",
