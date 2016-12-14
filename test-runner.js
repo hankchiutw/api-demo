@@ -2,7 +2,7 @@
 
 const Mocha = require('mocha');
 const mocha = new Mocha({
-    bail: true
+    bail: false
 });
 
 const read = require('fs-readdir-recursive');

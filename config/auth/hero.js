@@ -2,6 +2,7 @@
 
 const cn = require('co-nextware');
 const CustomStrategy = require('passport-custom').Strategy;
+const Hero = require('app/models/hero');
 
 /**
  * Expose
@@ -14,8 +15,12 @@ module.exports = new CustomStrategy(cn(check));
  */
 
 function *check(req, done){
-    // verify
+    if(!req.headers.name || !req.headers.password) return done(null, {});
 
+    logger.info('heroAuth: do verify');
+    // verify
+    const ret = yield Hero.doAuth(req.headers.name, req.headers.password);
+    req.isVerified = true;
     // return error
     //return done('errorMessage');
     

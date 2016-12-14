@@ -48,7 +48,7 @@ module.exports = function(){
 
         describe('#secret list', function(){
             it('should get secret list', function*(){
-                this.timeout(3000);
+                this.timeout(5000);
                 const req = { headers: this.authHeaderOk };
                 const ret = yield api('GET', '/heroes', req);
                 assert.isArray(ret, 'results should be an array');

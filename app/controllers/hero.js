@@ -21,12 +21,8 @@ function *list(req, res, next){
     logger.info('heroController: list:');
     let ret;
 
-    if(req.headers.name && req.headers.password){
-        yield Hero.doAuth(req.headers.name, req.headers.password);
-        ret = yield Hero.find();
-        yield ret.populate('profile');
-    }else
-        ret = yield Hero.find();
+    ret = yield Hero.find();
+    if(req.isVerified) yield ret.populate('profile');
 
     res.ok(ret.json);
 }
@@ -36,15 +32,10 @@ function *list(req, res, next){
  */
 function *oneById(req, res, next){
     logger.info('heroController: oneById:', req.params);
-    const id = req.params.id;
     let ret;
 
-    if(req.headers.name && req.headers.password){
-        yield Hero.doAuth(req.headers.name, req.headers.password);
-        ret = yield Hero.findOneById(id);
-        yield ret.populate('profile');
-    }else
-        ret = yield Hero.findOneById(id);
+    ret = yield Hero.findOneById(req.params.id);
+    if(req.isVerified) yield ret.populate('profile');
 
     res.ok(ret.json);
 }
