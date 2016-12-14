@@ -2,6 +2,7 @@
 
 const config = require('config/config');
 const rp = require('request-promise');
+const co = require('co');
 
 /** class definition */
 class Hero{
@@ -18,13 +19,11 @@ class Hero{
      * @param {String} field The property to expand
      * @return {Promise}
      */
-    populate(field){
+    *populate(field){
         const self = this;
         logger.info('hero.populate:', `/heroes/${self.json.id}/${field}`);
-        return _fetchPublic(`/heroes/${self.json.id}/${field}`).then( result => {
-            self.json[field] =  result;
-            return self;
-        });
+        self.json[field] = yield _fetchPublic(`/heroes/${self.json.id}/${field}`);
+        return self;
     }
 }
 
@@ -123,7 +122,7 @@ function _decorateArray(obj){
     obj.json = obj.map( item =>  item.json );
     obj.populate = function*(field){
         // async populate each items together
-        yield Promise.all(obj.map( item => item.populate(field) ));
+        yield Promise.all(obj.map( item => co(item.populate(field)) ));
     };
 }
 
