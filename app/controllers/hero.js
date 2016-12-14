@@ -1,8 +1,6 @@
 'use strict';
 
 const cn = require('co-nextware');
-const config = require('config/config');
-const rp = require('request-promise');
 const Hero = require('app/models/hero');
 
 /**

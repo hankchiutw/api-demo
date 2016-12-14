@@ -15,7 +15,11 @@ module.exports = new CustomStrategy(cn(check));
  */
 
 function *check(req, done){
-    if(!req.headers.name || !req.headers.password) return done(null, {});
+    // skip
+    if(!req.headers.name || !req.headers.password){
+        done(null, {});
+        return {};
+    }
 
     logger.info('heroAuth: do verify');
     // verify
@@ -25,6 +29,6 @@ function *check(req, done){
     //return done('errorMessage');
     
     // return success
-    return done(null, {});
+    done(null, {});
 
 }
