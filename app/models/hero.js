@@ -15,12 +15,16 @@ class Hero{
 
     /**
      * Fetch and expand field data
+     * @param {String} field The property to expand
+     * @return {Promise}
      */
-    *populate(field){
+    populate(field){
         const self = this;
         logger.info('hero.populate:', `/heroes/${self.json.id}/${field}`);
-        self.json.profile = yield _fetchPublic(`/heroes/${self.json.id}/${field}`);
-        return self;
+        return _fetchPublic(`/heroes/${self.json.id}/${field}`).then( result => {
+            self.json[field] =  result;
+            return self;
+        });
     }
 }
 
@@ -118,9 +122,8 @@ function _decorateArray(obj){
 
     obj.json = obj.map( item =>  item.json );
     obj.populate = function*(field){
-        for(const item of obj){
-            yield item.populate(field);
-        }
+        // async populate each items together
+        yield Promise.all(obj.map( item => item.populate(field) ));
     };
 }
 
