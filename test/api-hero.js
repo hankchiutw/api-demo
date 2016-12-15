@@ -12,6 +12,7 @@ const mockApi = require('chai-api')(mockUrl);
 /** hero api tests */
 module.exports = function(){
     describe(`>>${__filename}`, function(){
+        this.retries(5);
         let mock = {};
 
         before(function*(){

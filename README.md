@@ -234,7 +234,7 @@ Defined in `app/models/hero.js`. Inspired from [mongoose](mongoose) API. Each da
 
 - Unexpected heroku server fail
   
-  Sometimes `{code: 1000, message: "Backend error"}` is got from heroku server instead of JSON data. Handle for this and return meaningful message to client.
+  Sometimes `{code: 1000, message: "Backend error"}` is got from heroku server instead of JSON data. Handle for this and return meaningful message to client. Also, set testing retries when fail.
   ```js
   // config/middlewares/errorHandler.js
     if(err.message == 'Backend error') return res.send('http://hahow-recruit.herokuapp.com/ temporarily fail');
