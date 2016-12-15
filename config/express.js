@@ -28,7 +28,7 @@ module.exports = function(app){
     app.engine('html', ejs.__express);
 
     // Static files middleware
-    app.use(express.static(path.join(__dirname, '..', 'public')));
+//    app.use(express.static(path.join(__dirname, '..', 'public')));
 
     // request parser
     app.use(bodyParser.urlencoded({ extended: false }));
