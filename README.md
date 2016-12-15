@@ -1,5 +1,6 @@
 # api-demo
 Simple API service project using [express.js][express.js].
+[![travis status](https://travis-ci.org/hankchiutw/api-demo.svg?branch=master)](https://travis-ci.org/hankchiutw/api-demo)
 
 ### Features
 - Execute by [pm2][pm2] process manager.
